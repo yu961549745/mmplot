@@ -27,7 +27,7 @@ label_str:=x->str_encode(`if`(type(x,string),x,latex(x,output=string)));
 
 # 3D曲面绘图接口
 plot3dm:=proc(_eq,{x::range:=0..1,y::range:=0..1,title::string:="",grid::list:=[100,100],labels::list:=[x,y,z],extcmd::string:="",
-        view::{range,list(range)}:=[x,y,-infinity,infinity]})
+        view::{range,list(range)}:=[x,y,-infinity..infinity]})
     uses ImageTools;
     local eq,_view,plot3d_args;
     if type(view,range) then

@@ -19,6 +19,7 @@ eqstr=strrep(eqstr,'^','.^');
 z=eval(eqstr);
 
 figure;
+colormap cool;
 % 设置颜色方向按照 y=x 方向渐变
 h=surf(x,y,x+y);
 c=get(h,'CData');
