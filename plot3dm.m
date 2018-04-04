@@ -19,6 +19,7 @@ eqstr=strrep(eqstr,'^','.^');
 z=eval(eqstr);
 
 figure;
+% 设置颜色方向按照 y=x 方向渐变
 h=surf(x,y,x+y);
 c=get(h,'CData');
 cla;
@@ -26,12 +27,12 @@ h=surf(x,y,z);
 set(h,'CData',c);
 shading interp;
 
+% 以更低的密度绘制网格线
 hold on;
-xrange{3}=30;
-yrange{3}=30;
-[x,y]=meshgrid(linspace(xrange{:}),linspace(yrange{:}));
-z=eval(eqstr);
-h=mesh(x,y,z);
+[ny,nx]=size(x);
+xind=1:3:nx;
+yind=1:3:ny;
+h=mesh(x(yind,xind),y(yind,xind),z(yind,xind));
 set(h,'EdgeColor','k','FaceAlpha',0);
 
 xlabel(labels{1});
@@ -39,7 +40,6 @@ ylabel(labels{2});
 zlabel(labels{3},'rotation',0);
 axis(axis_range)
 title(title_str);
-
 
 % 执行额外的 Matlab 绘图命令
 eval(extcmd);
