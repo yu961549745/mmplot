@@ -1,4 +1,4 @@
-function plot3dm(eqstr,xrange,yrange,title_str,labels,extcmd,savefile)
+function plot3dm(eqstr,xrange,yrange,axis_range,title_str,labels,extcmd,savefile)
 
 % 字符串以 URL 编码进行传递, 防止产生编码问题
 eqstr=str_decode(eqstr);
@@ -19,12 +19,27 @@ eqstr=strrep(eqstr,'^','.^');
 z=eval(eqstr);
 
 figure;
-surf(x,y,z);
+h=surf(x,y,x+y);
+c=get(h,'CData');
+cla;
+h=surf(x,y,z);
+set(h,'CData',c);
+shading interp;
+
+hold on;
+xrange{3}=30;
+yrange{3}=30;
+[x,y]=meshgrid(linspace(xrange{:}),linspace(yrange{:}));
+z=eval(eqstr);
+h=mesh(x,y,z);
+set(h,'EdgeColor','k','FaceAlpha',0);
+
 xlabel(labels{1});
 ylabel(labels{2});
 zlabel(labels{3},'rotation',0);
-axis tight
+axis(axis_range)
 title(title_str);
+
 
 % 执行额外的 Matlab 绘图命令
 eval(extcmd);
